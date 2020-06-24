@@ -1,0 +1,82 @@
+<div id="blog" class="blogBody">
+    <div class="container">
+        <div id="blog-row" class="row justify-content-center align-items-center">
+            <div id="blog-column" class="col-md-6">
+                <div id="blog-box" class="col-md-12">
+                     <!--  Blog Form  -->
+                    <form id="blog-form" class="form" [formGroup]="Blog" (ngSubmit) ="createBlog()" >
+                        <h3 class="text-center text-info">Blog</h3>
+                        <div class="form-group">
+                            <label for="username" class="text-info">Blog Title:</label><br>
+                            <input type="text" name="blogTitle" id="blogTitle" class="form-control" formControlName="blogTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="text-info">Blog Image:</label><br>
+                            <input type="File" name="blogImage" id="blogImage" class="form-control"  (change)="onFileChanged($event)">
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="text-info">Blog Description:</label><br>
+                            <textarea name="BlogDescription" id="BlogDescription" cols="50" rows="5" formControlName ="description"></textarea>
+                        </div>
+                        <div class="form-group" class="text-center">
+                            <input type="submit" name="Create Blog" class="btn btn-info btn-md" value="Create Blog">
+                        </div>
+                        
+                    </form>
+
+
+                     <!-- Edit Blog Form  -->
+                    <form [formGroup] = "updateblogForm"  id="updateblogId"  class="form" (ngSubmit) = "updateblog()" style="display: none;">
+                        <h3 class="text-center text-info">Update Blog</h3>
+                        <div class="form-group" style="display: none;">
+                            <label for="username" class="text-info">_d:</label><br>
+                            <input type="text" name="blogTitle" id="blogTitle" class="form-control" formControlName = "_id" [(ngModel)]="blogdata._id" >
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="text-info">Blog Title:</label><br>
+                            <input type="text" name="blogTitle" id="blogTitle" class="form-control" formControlName = "blogTitle" [(ngModel)]="blogdata.title" >
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="text-info">Blog Image:</label><br>
+                            <img [src]=blogdata.image style="width: 100px; height: 100px;" alt="">
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="text-info">Blog Description:</label><br>
+                            <textarea name="BlogDescription" id="BlogDescription" cols="40" rows="5" formControlName = "description"[(ngModel)]="blogdata.description" ></textarea>
+                        </div>
+                        <div class="form-group" class="text-center">
+                            <input type="submit" name="Create Blog" class="btn btn-info btn-md" value="Update Blog">
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+ <!-- Blog Table-->
+ <table class="table ">
+    <thead>
+      <tr>
+        <th scope="col" style="display: none;">Id</th>
+        <th scope="col"><b>Blog Title</b></th>
+        <th scope="col"><b>Blog Description</b></th>
+        <th scope="col"><b>Blog Image</b></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = 'let blog of allBlog'>
+         <td style="display: none;"></td> 
+        <td>{{blog.title }}</td>
+        <td>{{blog.description}}</td>
+        <td> <img [src]=blog.image alt="" style="width: 100px; height: 100px;"> </td>
+        <td><input type="submit" name="edit" class="btn btn-info btn-md" value="Edit" (click) = "edit(blog)"></td>
+        <td><input type="submit" name="Delete" class="btn btn-danger btn-md" value="Delete" (click) = "delete(blog._id)"></td>
+      </tr>
+    </tbody>
+  </table>
+  
+ 
+
